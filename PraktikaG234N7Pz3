@@ -44,22 +44,22 @@ pvt.loc['female', ['1st', '2nd', '3rd']]
 pvt = df.pivot_table(index=['Survived'], columns=['PClass'], values='Name', aggfunc='count')
 
 
-# In[9]:
-
-
-pvt.loc['1', ['1st', '2nd', '3rd']]
-
-
 # In[12]:
 
 
 data = pvt.loc[1, ['1st', '2nd', '3rd']]
 
 
-# In[13]:
+# In[24]:
 
 
-data.plot()
+import matplotlib.pyplot as plt
+
+data.plot.bar()
+plt.xlabel('Класс')
+plt.ylabel('Кол-во выживших')
+
+plt.show()
 
 
 # In[ ]:

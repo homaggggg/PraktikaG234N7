@@ -1,0 +1,145 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[3]:
+
+
+def F1(n):
+    if n < 2:
+        return 1
+    else:
+        return F(n - 1) + F(n - 2)
+    
+print(F1(40))
+
+
+# In[5]:
+
+
+def F2(n):
+    F = [0] * (n + 1)
+    F[0] = 1
+    F[1] = 1
+    for i in range(2, n + 1):
+        F[i] = F[i - 2] + F[i - 1]    
+    return F[n]
+
+print(F2(40))
+
+
+# In[8]:
+
+
+n = 40
+
+F = [0] * (n + 1)
+F[0] = 1
+F[1] = F[0]
+F[2] = F[1] + F[0]
+for i in range(3, n + 1):
+    F[i] = F[i - 3] + F[i - 2] + F[i - 1]
+
+print(F[n])
+
+
+# In[20]:
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# In[13]:
+
+
+#задача 1
+
+def F2(n):
+    F = [0] * (n + 1)
+    F[0] = 1
+    F[1] = 1
+    for i in range(2, n + 1):
+        if i%2 == 0:
+            F[i] = F[i - 2] + F[i - 1] + F[i//2]       
+        else:
+            F[i] = F[i - 2] + F[i - 1]     
+    return F[n]
+
+print(F2(40))
+
+
+# In[32]:
+
+
+F = [0] * (n + 1)
+F[0] = 1
+F[1] = 1
+for i in range(2, n + 1):
+    if i%2 == 0:
+        F[i] = F[i - 2] + F[i - 1] + F[i//2]       
+    else:
+        F[i] = F[i - 2] + F[i - 1]     
+y = np.array(F)
+plt.plot(y)
+
+
+# In[27]:
+
+
+#задача 2
+
+n = 100
+Price = [1]
+Prev = [0]
+for i in range(100):
+    Price.append(Price[i] + 1)
+
+C = [0] * (n + 1)
+C[1] = Price[1]
+for i in range(2, n + 1):
+    C[i] = min(C[i - 1], C[i - 2]) + Price[i]
+
+print(C[n])
+
+
+# In[31]:
+
+
+Prev = [0]*101
+
+Prev[1] = 0
+for i in range(2, n + 1):
+    if C[i - 1] < C[i - 2]:
+        C[i] = C[i - 1] + Price[i]
+        Prev[i] = i - 1
+    else:
+        C[i] = C[i - 2] + Price[i]
+        Prev[i] = i - 2
+
+
+        
+Path = []
+i = n
+while i > 0:
+    if C[i - 1] < C[i - 2]:
+        prev = i - 1
+    else:
+        prev = i - 2
+    Path.append(prev)
+    i = prev
+Path.append(0)
+Path = Path[::-1]
+
+
+# In[33]:
+
+
+y = np.array(Path)
+plt.plot(y)
+
+
+# In[ ]:
+
+
+
+
